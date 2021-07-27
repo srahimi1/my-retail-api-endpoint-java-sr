@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
-@CrossOrigin(origins = {"https://my-retail-api-consumer-site.herokuapp.com/"})
+@CrossOrigin(origins = {"https://my-retail-api-consumer-site-sr.herokuapp.com"})
 public class MyRetailApiServiceJavaController {
 
     private final Product product;
