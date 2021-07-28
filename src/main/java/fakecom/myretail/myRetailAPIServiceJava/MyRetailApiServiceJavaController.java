@@ -1,5 +1,6 @@
 package fakecom.myretail.myRetailAPIServiceJava;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,6 +14,7 @@ public class MyRetailApiServiceJavaController {
     private final CurrentPrice currentPrice;
     private final MongoDbInteractions mongoDbInteractions;
 
+    @Autowired
     public MyRetailApiServiceJavaController(Product product, MongoDbInteractions mongoDbInteractions, CurrentPrice currentPrice) {
         this.product = product;
         this.currentPrice = currentPrice;
