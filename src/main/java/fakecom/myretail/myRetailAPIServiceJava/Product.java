@@ -29,35 +29,31 @@ public class Product {
     } // end constructor Product()
 
     private void productReset() {
-        setId("-1");
-        setProduct_name("");
-        setProduct_description("");
-        setProduct_image_url("");
-        setErrorMsg("");
+        id = "-1";
+        product_name = "";
+        product_description = "";
+        product_image_url = "";
+        errorMsg = "";
         current_price.setValue("");
         current_price.setCurrency_code("");
     } // end productReset()
 
-    public String getFromAPI(String id) {
-        String output = "";
+    public void getFromAPI(String id) {
         String uriString = String.format(System.getenv("REMOTE_API_URI_1"), id);
         URI uri = URI.create(uriString);
         HttpRequest request = HttpRequest.newBuilder(uri).build();
         productReset();
         try {
             HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            output = setProductFields(id, response.body().toString());
+            setProductFields(id, response.body().toString());
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            output = e.getMessage();
-        } catch (NullPointerException e) {
-            output = "null";
+            errorMsg = "Could not connect to API endpoint";
+            throw new NullPointerException();
         } // end try catch
-        return output;
     } // end getFromAPI()
 
-    private String setProductFields(String id, String response) {
-        String output = "";
+    private void setProductFields(String id, String response) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonNode jn = mapper.readTree(response);
@@ -77,12 +73,9 @@ public class Product {
             current_price.setCurrency_code(currency_code);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            output = e.getMessage();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            output = String.format("Product with id %s not found", id);
+            errorMsg = String.format("Product with id %s could not be found", id);
+            throw new NullPointerException();
         } // end try catch
-        return output;
     } // end setProductFields()
 
     public void setId(String id) {

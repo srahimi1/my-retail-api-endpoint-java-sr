@@ -22,30 +22,15 @@ public class MyRetailApiServiceJavaController {
     } // end constructor MyRetailApiServiceJavaController()
 
     @GetMapping("/api/v1/products/{id}")
-    public String getProductByID(@PathVariable String id) {
-        ObjectMapper mapper = new ObjectMapper();
-
-        String output = "fail_", errorMsg = "";
+    public Product getProductByID(@PathVariable String id) {
 
         try {
-            errorMsg = product.getFromAPI(id);
+            product.getFromAPI(id);
         } catch (NullPointerException e) {
-            errorMsg = "null";
+            if (product.getErrorMsg() == "") product.setErrorMsg(String.format("Product with id %s could not be found", id));
         } // end try catch
 
-        if (errorMsg.equals("")) {
-            try {
-                output = "pass_" + mapper.writeValueAsString(product);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-                output += e.getMessage();
-            } catch (NullPointerException e) {
-                output = "null";
-            }// end try catch
-        } else {
-            output += errorMsg;
-        } // end if else
-        return output;
+        return product;
     } // end getProductByID()
 
     @PutMapping("/api/v1/products/{id}")
