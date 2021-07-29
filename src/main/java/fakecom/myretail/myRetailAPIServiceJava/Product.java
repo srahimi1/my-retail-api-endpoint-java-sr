@@ -78,6 +78,10 @@ public class Product {
         } // end try catch
     } // end setProductFields()
 
+    public String savePriceData(String id, String value, String currency_code) {
+        return mongoDbInteractions.savePriceDataToMongoDb(id, value, currency_code);
+    } // end savePriceDataToMongoDb()
+
     public void setId(String id) {
         this.id = id;
     }

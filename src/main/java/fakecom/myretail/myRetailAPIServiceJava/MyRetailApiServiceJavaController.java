@@ -12,13 +12,11 @@ public class MyRetailApiServiceJavaController {
 
     private final Product product;
     private final CurrentPrice currentPrice;
-    private final MongoDbInteractions mongoDbInteractions;
 
     @Autowired
-    public MyRetailApiServiceJavaController(Product product, MongoDbInteractions mongoDbInteractions, CurrentPrice currentPrice) {
+    public MyRetailApiServiceJavaController(Product product, CurrentPrice currentPrice) {
         this.product = product;
         this.currentPrice = currentPrice;
-        this.mongoDbInteractions = mongoDbInteractions;
     } // end constructor MyRetailApiServiceJavaController()
 
     @GetMapping("/api/v1/products/{id}")
@@ -42,7 +40,7 @@ public class MyRetailApiServiceJavaController {
             String value = jn.get("current_price").get("value").asText();
             if (currentPrice.isNumeric(value)) {
                 String currency_code = jn.get("current_price").get("currency_code").asText();
-                output = mongoDbInteractions.savePriceDataToMongoDb(id, value, currency_code);
+                output = product.savePriceData(id, value, currency_code);
             } // end if
         } catch (JsonProcessingException | NullPointerException e) {
             e.printStackTrace();
