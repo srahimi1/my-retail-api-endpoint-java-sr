@@ -1,6 +1,6 @@
 # my-retail-api-endpoint-java-sr
 
-This server-side code is a back-end api service written in Java and using the Spring Boot framework. It serves to respond to api requests to retrieve data or update data for products in myRetail's products collection. 
+This server-side code is a back-end api service written in Java and using the Spring framework with Spring Boot. It serves to respond to api requests to retrieve data or update data for products in myRetail's products collection. 
 
 Details of the code include:
 
