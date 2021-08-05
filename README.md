@@ -6,7 +6,7 @@ This server-side code is a back-end api service written in Java and using the Sp
 
 Details of the code include:
 
-* 'router' and 'controller' code written in the 'MyRetailApiServiceJavaController.java' file, located in the '/src/main/java/fakecom/myretail/myRetailAPIServiceJava' directory. The router uses Spring's @GetMapping and @PutMapping annotations to route https requests to handler methods.  
+* 'router' and 'controller' code written in the '[MyRetailApiServiceJavaController.java](src/main/java/fakecom/myretail/myRetailAPIServiceJava/MyRetailApiServiceJavaController.java)' file, located in the '/src/main/java/fakecom/myretail/myRetailAPIServiceJava' directory. The router uses Spring's @GetMapping and @PutMapping annotations to route https requests to handler methods.  
 
 * The @GetMapping annotation, which receives 'GET' requests from the front-end, passes the necessary data to the getProductByID handler method. This method retrieves data from another api source, via a 'GET' request, and pricing data from a remote MongoDB NoSQL source, and assigns them to the corresponding fields of a Product class instance. That Product instance is then rendered to a JSON string automatically by the Spring framework.
 
