@@ -1,6 +1,6 @@
 package fakecom.myretail.myRetailAPIServiceJava;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
@@ -12,12 +12,12 @@ import org.bson.Document;
 
 import static com.mongodb.client.model.Filters.eq;
 
-@Component
-public class MongoDbInteractions {
+@Repository
+public class MongoDbRepository {
 
     private MongoDatabase database;
 
-    public MongoDbInteractions() {
+    public MongoDbRepository() {
         database = mongoDbConnect("myRetailAPIServiceJava");
     }
 
@@ -67,4 +67,4 @@ public class MongoDbInteractions {
         } // end try catch
         return temp;
     } // end mongoDbConnect()
-} // end class MongoDbInteractions
+} // end class MongoDbRepository

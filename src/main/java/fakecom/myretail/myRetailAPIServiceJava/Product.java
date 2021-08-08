@@ -19,11 +19,11 @@ public class Product {
     private final HttpClient client = HttpClient.newHttpClient();
     private String id, product_name, product_description, product_image_url, errorMsg;
     private final CurrentPrice current_price;
-    private final MongoDbInteractions mongoDbInteractions;
+    private final MongoDbRepository mongoDbRepository;
 
     @Autowired
-    public Product(MongoDbInteractions mongoDbInteractions, CurrentPrice currentPrice) {
-        this.mongoDbInteractions = mongoDbInteractions;
+    public Product(MongoDbRepository mongoDbRepository, CurrentPrice currentPrice) {
+        this.mongoDbRepository = mongoDbRepository;
         this.current_price = currentPrice;
         productReset();
     } // end constructor Product()
@@ -61,11 +61,11 @@ public class Product {
             setProduct_name(jn.get("product").get("item").get("product_description").get("title").asText());
             setProduct_description(jn.get("product").get("item").get("product_description").get("downstream_description").asText());
             setProduct_image_url(jn.get("product").get("item").get("enrichment").get("images").get(0).get("base_url").asText() + jn.get("product").get("item").get("enrichment").get("images").get(0).get("primary").asText());
-            Document productPriceData = mongoDbInteractions.findPriceDataByIdMongoDb(id);
+            Document productPriceData = mongoDbRepository.findPriceDataByIdMongoDb(id);
             if (productPriceData == null) {
                 Random rand = new Random();
                 String price = Integer.toString(rand.nextInt(200) + 100);
-                productPriceData = mongoDbInteractions.addRandomPriceDataToMongoDb(id,price);
+                productPriceData = mongoDbRepository.addRandomPriceDataToMongoDb(id,price);
             } // end if
             String value = ((Document)productPriceData.get("current_price")).get("value").toString();
             String currency_code = ((Document)productPriceData.get("current_price")).get("currency_code").toString();
@@ -79,7 +79,7 @@ public class Product {
     } // end setProductFields()
 
     public String savePriceData(String id, String value, String currency_code) {
-        return mongoDbInteractions.savePriceDataToMongoDb(id, value, currency_code);
+        return mongoDbRepository.savePriceDataToMongoDb(id, value, currency_code);
     } // end savePriceDataToMongoDb()
 
     public void setId(String id) {
