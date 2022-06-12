@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @CrossOrigin(origins = {"https://my-retail-api-consumer-site-sr.herokuapp.com"})
+@RequestMapping("/api/v1")
 public class MyRetailApiServiceJavaController {
 
     private final Product product;
@@ -19,7 +20,7 @@ public class MyRetailApiServiceJavaController {
         this.currentPrice = currentPrice;
     } // end constructor MyRetailApiServiceJavaController()
 
-    @GetMapping("/api/v1/products/{id}")
+    @GetMapping("/products/{id}")
     public Product getProductByID(@PathVariable String id) {
 
         try {
@@ -31,7 +32,7 @@ public class MyRetailApiServiceJavaController {
         return product;
     } // end getProductByID()
 
-    @PutMapping("/api/v1/products/{id}")
+    @PutMapping("/products/{id}")
     public String setProductByID(@PathVariable String id, @RequestParam String data) {
         ObjectMapper mapper = new ObjectMapper();
         String output = "fail";
